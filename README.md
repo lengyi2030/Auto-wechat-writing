@@ -1,4 +1,4 @@
-# 公众号写作神器 / Wechat Auto Writing
+# 公众号写作神器 / Auto-Wechat Writing
 
 [中文](#中文文档) | [English](#english-documentation)
 
