@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沃垠内容写作神器</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81',950:'#1e1b4b' },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white min-h-screen antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center">
+          <i class="fas fa-pen-nib text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-slate-800 text-base tracking-tight">沃垠内容写作神器</span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-slate-500">
+        <a href="#features" class="hover:text-primary-600 transition-colors">功能</a>
+        <a href="#cases" class="hover:text-primary-600 transition-colors">使用案例</a>
+        <a href="#about" class="hover:text-primary-600 transition-colors">关于我们</a>
+        <button onclick="App.openSettings()" class="ml-1 w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors" title="API 设置">
+          <i class="fas fa-cog"></i>
+        </button>
+      </nav>
+      <!-- Mobile: settings only -->
+      <button onclick="App.openSettings()" class="sm:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-400" title="API 设置">
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-slate-950 via-primary-950 to-slate-900 pt-32 pb-24 sm:pt-40 sm:pb-32">
+    <!-- Decorative orbs -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+    <div class="relative max-w-3xl mx-auto px-5 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs text-primary-200 mb-8 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>AI Agent 驱动的写作神器</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight">
+        别折腾自己了<br>
+        <span class="bg-gradient-to-r from-primary-300 to-emerald-300 bg-clip-text text-transparent">让AI写吧</span>
+      </h1>
+
+      <p class="mt-6 text-lg sm:text-xl text-slate-300 leading-relaxed max-w-xl mx-auto">
+        从灵感到成品，三步搞定正文、标题摘要、封面配图
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#workspace" class="group px-8 py-3.5 bg-white text-slate-900 font-semibold rounded-xl hover:bg-slate-100 transition-all shadow-lg shadow-white/10 flex items-center gap-2">
+          开始创作
+          <i class="fas fa-arrow-down text-sm group-hover:translate-y-0.5 transition-transform"></i>
+        </a>
+        <a href="#features" class="px-8 py-3.5 border border-white/20 text-white/80 font-medium rounded-xl hover:bg-white/10 hover:text-white transition-all">
+          了解更多
+        </a>
+      </div>
+
+      <!-- Trust line -->
+      <div class="mt-14 flex items-center justify-center gap-6 text-xs text-slate-500">
+        <span class="flex items-center gap-1.5"><i class="fas fa-shield-halved text-emerald-500/60"></i>数据本地存储</span>
+        <span class="flex items-center gap-1.5"><i class="fas fa-plug text-primary-400/60"></i>自由接入模型</span>
+        <span class="flex items-center gap-1.5"><i class="fas fa-bolt text-amber-400/60"></i>流式实时生成</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="py-20 sm:py-28 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">从写作到发布，一站闭环</h2>
+        <p class="mt-3 text-slate-500 max-w-lg mx-auto">四大能力模块串联完整创作流程，告别工具之间来回切换的低效。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <!-- Feature 1 -->
+        <div class="group bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:shadow-primary-500/5 hover:border-primary-200 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-primary-50 flex items-center justify-center mb-5 group-hover:bg-primary-100 transition-colors">
+            <i class="fas fa-pen-fancy text-primary-600"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">风格化写作</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">内置多种写作风格模板，AI 严格遵循风格约束，每篇文章都有鲜明的个人辨识度，告别千篇一律的 AI 味。</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="group bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:shadow-primary-500/5 hover:border-primary-200 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center mb-5 group-hover:bg-amber-100 transition-colors">
+            <i class="fas fa-list-check text-amber-600"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">智能标题摘要</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">基于正文一键批量生成 5 组标题和摘要，涵盖疑问句、数字型、反差型等多种风格，总有打动你的那一组。</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="group bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:shadow-primary-500/5 hover:border-primary-200 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-5 group-hover:bg-emerald-100 transition-colors">
+            <i class="fas fa-wand-magic-sparkles text-emerald-600"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">AI 封面生成</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">自动提炼关键内容点，生成 3 个专业封面图 Prompt，选定后一键调用文生图模型出图，2.35:1 宽幅比例。</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="group bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:shadow-primary-500/5 hover:border-primary-200 transition-all duration-300">
+          <div class="w-11 h-11 rounded-xl bg-rose-50 flex items-center justify-center mb-5 group-hover:bg-rose-100 transition-colors">
+            <i class="fas fa-rocket text-rose-500"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">即拿即用</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">所有文本内容一键复制到剪贴板，封面图直接下载到本地，无缝对接公众号、小红书、今日头条等平台。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="py-20 sm:py-28 bg-white">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">四步完成创作</h2>
+      </div>
+
+      <!-- Steps -->
+      <div class="grid sm:grid-cols-4 gap-6 sm:gap-0 relative">
+        <!-- Connecting line (desktop) -->
+        <div class="hidden sm:block absolute top-[3.25rem] left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-primary-200 via-primary-300 to-primary-200"></div>
+
+        <div class="relative text-center group">
+          <div class="w-[3.5rem] h-[3.5rem] rounded-full bg-primary-600 text-white text-lg font-bold flex items-center justify-center mx-auto shadow-lg shadow-primary-600/20 group-hover:scale-110 transition-transform relative z-10">1</div>
+          <div class="mt-5">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 text-slate-500 mb-3">
+              <i class="fas fa-keyboard"></i>
+            </div>
+            <h4 class="font-semibold text-slate-900 mb-1">输入主题</h4>
+            <p class="text-sm text-slate-500">描述你的主题和写作要求，选择写作风格</p>
+          </div>
+        </div>
+
+        <div class="relative text-center group">
+          <div class="w-[3.5rem] h-[3.5rem] rounded-full bg-primary-600 text-white text-lg font-bold flex items-center justify-center mx-auto shadow-lg shadow-primary-600/20 group-hover:scale-110 transition-transform relative z-10">2</div>
+          <div class="mt-5">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 text-slate-500 mb-3">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h4 class="font-semibold text-slate-900 mb-1">AI 写作</h4>
+            <p class="text-sm text-slate-500">AI 按风格约束实时流式生成完整文章</p>
+          </div>
+        </div>
+
+        <div class="relative text-center group">
+          <div class="w-[3.5rem] h-[3.5rem] rounded-full bg-primary-600 text-white text-lg font-bold flex items-center justify-center mx-auto shadow-lg shadow-primary-600/20 group-hover:scale-110 transition-transform relative z-10">3</div>
+          <div class="mt-5">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 text-slate-500 mb-3">
+              <i class="fas fa-tags"></i>
+            </div>
+            <h4 class="font-semibold text-slate-900 mb-1">标题摘要</h4>
+            <p class="text-sm text-slate-500">批量生成 5 组标题和摘要，自由挑选</p>
+          </div>
+        </div>
+
+        <div class="relative text-center group">
+          <div class="w-[3.5rem] h-[3.5rem] rounded-full bg-emerald-600 text-white text-lg font-bold flex items-center justify-center mx-auto shadow-lg shadow-emerald-600/20 group-hover:scale-110 transition-transform relative z-10">4</div>
+          <div class="mt-5">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 text-slate-500 mb-3">
+              <i class="fas fa-image"></i>
+            </div>
+            <h4 class="font-semibold text-slate-900 mb-1">封面出图</h4>
+            <p class="text-sm text-slate-500">提炼关键点，生成 Prompt，一键出封面图</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKSPACE ============ -->
+  <section id="workspace" class="py-16 sm:py-24 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 space-y-6">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">开始创作</h2>
+        <p class="mt-3 text-slate-500">输入你的主题，让 AI 帮你完成剩下的工作。</p>
+      </div>
+
+      <!-- Input -->
+      <div id="input-section" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">主题 & 写作要求</label>
+            <textarea id="topic-input" rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none transition-all" placeholder="输入你的文章主题和写作要求，例如：&#10;写一篇关于 AI 对内容创作影响的评论文章"></textarea>
+          </div>
+          <div class="flex items-end gap-4">
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-slate-700 mb-2">写作风格</label>
+              <select id="style-select" class="w-full px-4 py-3 border border-slate-300 rounded-xl text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+                <option value="">加载中...</option>
+              </select>
+            </div>
+            <button id="btn-generate" onclick="App.generateArticle()" disabled class="px-8 py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all flex items-center gap-2 whitespace-nowrap">
+              <i class="fas fa-pen-nib"></i>
+              <span>开始写作</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article -->
+      <div id="article-section" class="hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-medium text-slate-700">正文</span>
+              <span id="article-style-tag" class="text-xs px-2 py-0.5 bg-primary-50 text-primary-600 rounded-full"></span>
+            </div>
+            <button onclick="App.copyText('article')" class="text-sm text-slate-400 hover:text-primary-600 flex items-center gap-1.5 transition-colors">
+              <i class="far fa-copy"></i>
+              <span>复制正文</span>
+            </button>
+          </div>
+          <div id="article-content" class="px-6 py-5 prose prose-slate max-w-none min-h-[120px]">
+            <div class="text-slate-400 text-sm">生成中...</div>
+          </div>
+          <div class="px-6 py-4 border-t border-slate-100 flex justify-end">
+            <button id="btn-titles" onclick="App.generateTitles()" disabled class="px-6 py-2.5 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all flex items-center gap-2">
+              <i class="fas fa-list"></i>
+              <span>生成标题摘要</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titles & Summaries -->
+      <div id="titles-section" class="hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100">
+            <span class="text-sm font-medium text-slate-700">标题 & 摘要</span>
+          </div>
+          <div id="titles-list" class="divide-y divide-slate-100"></div>
+          <div class="px-6 py-4 border-t border-slate-100 flex justify-end">
+            <button id="btn-cover" onclick="App.generateCoverPrompts()" class="px-6 py-2.5 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-all flex items-center gap-2">
+              <i class="fas fa-image"></i>
+              <span>生成封面</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <div id="cover-section" class="hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100">
+            <span class="text-sm font-medium text-slate-700">封面图</span>
+          </div>
+          <div class="px-6 py-4 border-b border-slate-100">
+            <div class="text-xs text-slate-400 mb-2">关键内容点</div>
+            <div id="key-points" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div id="cover-prompts" class="px-6 py-4 space-y-3"></div>
+          <div id="cover-image-container" class="hidden px-6 py-4 border-t border-slate-100">
+            <div class="text-xs text-slate-400 mb-2">生成的封面图</div>
+            <div class="relative rounded-xl overflow-hidden bg-slate-100">
+              <img id="cover-image" src="" alt="封面图" class="w-full">
+            </div>
+            <div class="mt-3 flex justify-end">
+              <button id="btn-download" onclick="App.downloadCoverImage()" class="px-5 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-all flex items-center gap-2">
+                <i class="fas fa-download"></i>
+                <span>下载图片</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ USE CASES ============ -->
+  <section id="cases" class="py-20 sm:py-28 bg-white">
+    <div class="max-w-5xl mx-auto px-5">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">让 AI 适配你的创作场景</h2>
+        <p class="mt-3 text-slate-500 max-w-lg mx-auto">无论是科技评论、行业分析还是新媒体爆款，选对风格，AI 帮你写出有灵魂的内容。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <!-- Case 1 -->
+        <div class="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-primary-200 transition-all duration-300">
+          <div class="h-2 bg-gradient-to-r from-primary-500 to-primary-700"></div>
+          <div class="p-7">
+            <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center mb-4">
+              <i class="fas fa-microchip text-primary-600"></i>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">科技媒体评论</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-5">犀利洞察科技行业，直击本质的深度评论。文风自信有态度，读起来像深夜独白。</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">犀利观点</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">中英夹杂</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">反问修辞</span>
+            </div>
+          </div>
+        </div>
+        <!-- Case 2 -->
+        <div class="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-amber-200 transition-all duration-300">
+          <div class="h-2 bg-gradient-to-r from-amber-400 to-amber-600"></div>
+          <div class="p-7">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-4">
+              <i class="fas fa-chart-line text-amber-600"></i>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">行业深度分析</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-5">数据驱动的行业趋势分析，专业严谨且易于理解，适合面向从业者和决策层的内容。</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">数据驱动</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">趋势洞察</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">专业可信</span>
+            </div>
+          </div>
+        </div>
+        <!-- Case 3 -->
+        <div class="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-rose-200 transition-all duration-300">
+          <div class="h-2 bg-gradient-to-r from-rose-400 to-rose-600"></div>
+          <div class="p-7">
+            <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center mb-4">
+              <i class="fas fa-fire-flame-curved text-rose-500"></i>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">新媒体爆款</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-5">高传播度的社交媒体内容，自带流量标题，适合公众号、头条、小红书等平台。</p>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">爆款标题</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">情绪共鸣</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded">短平快节奏</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="relative overflow-hidden py-20 sm:py-28 bg-gradient-to-br from-slate-950 via-primary-950 to-slate-900">
+    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="relative max-w-5xl mx-auto px-5">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">沃垠AI</h2>
+        <p class="mt-4 text-slate-400 max-w-2xl mx-auto leading-relaxed text-base">
+          「沃垠AI」成立于 2024 年 7 月，是全国 Top AI 媒体，微信公众号常年排全国前十，全平台粉丝 10 万+。长期聚焦大模型、Agent、AI 产品与应用落地，面向 AI 爱好者、从业者和企业决策层，持续输出兼具深度与实用性的干货内容，致力于 AI 技术的创新研究和普及应用。
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-12">
+        <div class="text-center p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1">10<span class="text-primary-400">万+</span></div>
+          <div class="text-sm text-slate-400">全平台粉丝</div>
+        </div>
+        <div class="text-center p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1">100<span class="text-primary-400">万+</span></div>
+          <div class="text-sm text-slate-400">全网传播量</div>
+        </div>
+        <div class="text-center p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1">100<span class="text-primary-400">+</span></div>
+          <div class="text-sm text-slate-400">原创 Prompt / Agent</div>
+        </div>
+        <div class="text-center p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white mb-1">Top<span class="text-primary-400"> 10</span></div>
+          <div class="text-sm text-slate-400">公众号长期排名</div>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <div class="max-w-3xl mx-auto space-y-3 text-sm text-slate-400 leading-relaxed">
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+          <i class="fas fa-trophy text-amber-400 mt-0.5 flex-shrink-0"></i>
+          <span>2025 年，获评「2025 年度 AI 测评媒体」</span>
+        </div>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+          <i class="fas fa-graduation-cap text-primary-400 mt-0.5 flex-shrink-0"></i>
+          <span>累计研发原创 Prompt 和 Agent 100+，全网被引用、传播数超过 100 万+</span>
+        </div>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+          <i class="fas fa-building text-emerald-400 mt-0.5 flex-shrink-0"></i>
+          <span>持续推动 AI 从"能用"走向"用好、用深"，先后受邀到德阳市人大、成都市律协、郑州市律协、中铁二十三局、二四局、瑞云集团、ACDC开发者大会、火山引擎开发者大会等分享AI实操培训</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-slate-950 border-t border-white/5 py-10">
+    <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center">
+          <i class="fas fa-pen-nib text-white text-xs"></i>
+        </div>
+        <span class="text-sm font-semibold text-slate-400">沃垠AI</span>
+        <span class="text-xs text-slate-600">用 AI 重新定义写作</span>
+      </div>
+      <p class="text-xs text-slate-600">&copy; 2024&ndash;2026 沃垠AI &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <!-- ============ SETTINGS MODAL ============ -->
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="App.closeSettings()"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-5 animate-modal-in max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-slate-800">API 设置</h2>
+        <button onclick="App.closeSettings()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <p class="text-sm text-slate-500">配置你的 AI 模型接口，支持所有 OpenAI 兼容 API。文本与图片模型可分别配置不同厂商。</p>
+      <div class="space-y-5">
+        <!-- Text Model -->
+        <div class="space-y-3">
+          <div class="text-sm font-semibold text-slate-700 flex items-center gap-2"><i class="fas fa-pen-nib text-primary-500"></i>文本生成模型</div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">API Base URL</label>
+            <input id="settings-api-url" type="url" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" placeholder="https://api.openai.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">API Key</label>
+            <input id="settings-api-key" type="password" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" placeholder="sk-...">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">模型名称</label>
+            <input id="settings-model-name" type="text" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" placeholder="gpt-4o">
+          </div>
+        </div>
+        <hr class="border-slate-200">
+        <!-- Image Model -->
+        <div class="space-y-3">
+          <div class="text-sm font-semibold text-slate-700 flex items-center gap-2"><i class="fas fa-image text-emerald-500"></i>图片生成模型</div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">API Base URL</label>
+            <input id="settings-image-api-url" type="url" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" placeholder="https://api.openai.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">API Key</label>
+            <input id="settings-image-api-key" type="password" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" placeholder="sk-...">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1">模型名称</label>
+            <input id="settings-image-model" type="text" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" placeholder="dall-e-3">
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button onclick="App.closeSettings()" class="flex-1 px-4 py-2.5 border border-slate-300 text-slate-600 font-medium rounded-xl hover:bg-slate-50 transition-all">取消</button>
+        <button onclick="App.saveSettings()" class="flex-1 px-4 py-2.5 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 transition-all">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
