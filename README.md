@@ -1,4 +1,4 @@
-# 内容写作神器 / AI Content Writing Tool
+# 公众号写作神器 / Wechat Auto Writing
 
 [中文](#中文文档) | [English](#english-documentation)
 
